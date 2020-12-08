@@ -5,13 +5,14 @@ import com.xhsydc.shopdemo.constant.CodeType;
 import com.xhsydc.shopdemo.entity.SellEntity;
 import com.xhsydc.shopdemo.service.ReportService;
 import org.junit.Before;
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +21,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-
 
 public class ReportControllerTest {
 
@@ -32,7 +32,7 @@ public class ReportControllerTest {
 
     List<SellEntity> mock;
 
-    @BeforeClass
+    @BeforeEach
     public void Initialization() throws Exception{
         MockitoAnnotations.initMocks(this);
         mock = new ArrayList<>();
@@ -96,9 +96,7 @@ public class ReportControllerTest {
 
     @Test
     void sellReport() {
-        String string = JSON.toJSONString(mock);
-        System.out.println(string);
-        //when(reportService.trackReport((any()))).thenReturn(new HashMap<>());
-        //reportController.sellReport(mock);
+        when(reportService.trackReport((any()))).thenReturn(new HashMap<>());
+        reportController.sellReport(mock);
     }
 }

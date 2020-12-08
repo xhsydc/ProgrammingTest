@@ -4,11 +4,13 @@ import com.xhsydc.shopdemo.constant.CodeType;
 import com.xhsydc.shopdemo.controller.ReportController;
 import com.xhsydc.shopdemo.entity.SellEntity;
 import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,7 @@ class ReportServiceTest {
 
     List<SellEntity> mock = new ArrayList<>();
 
-    @Before
+    @BeforeEach
     void Initialization(){
         MockitoAnnotations.initMocks(this);
         SellEntity s1 = new SellEntity();
@@ -85,6 +87,6 @@ class ReportServiceTest {
 
     @Test
     void trackReport() {
-        //reportService.trackReport(mock);
+        reportService.trackReport(mock);
     }
 }

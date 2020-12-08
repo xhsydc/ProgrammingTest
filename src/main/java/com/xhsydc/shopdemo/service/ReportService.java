@@ -47,16 +47,38 @@ public class ReportService {
 
     private Long getCount(List<SellEntity> relList) {
         Long count = 0L;
+        String lastSell = "";
+        String lastOp = "";
         for(SellEntity sellEntity :relList){
-            if(CodeType.op_insert.equalsIgnoreCase(sellEntity.getOpType())||CodeType.op_update.equalsIgnoreCase(sellEntity.getOpType())){
+            if(CodeType.op_cancel.equalsIgnoreCase(sellEntity.getOpType())){
+                count = 0L;
+                break;
+            }
+            if(lastOp.equalsIgnoreCase(sellEntity.getOpType())&&lastSell.equalsIgnoreCase(sellEntity.getSellBuy())){
+                count = sellEntity.getQuantity();
+            }
+            if(CodeType.op_insert.equalsIgnoreCase(sellEntity.getOpType())){
                 if(CodeType.buy.equalsIgnoreCase(sellEntity.getSellBuy())){
                     count+=sellEntity.getQuantity();
                 }else if(CodeType.sell.equalsIgnoreCase(sellEntity.getSellBuy())){
                     count-=sellEntity.getQuantity();
                 }
-            }else if(CodeType.op_cancel.equalsIgnoreCase(sellEntity.getOpType())){
-                    count = 0L;
-                    break;
+                lastSell = sellEntity.getSellBuy();
+                lastOp = sellEntity.getOpType();
+                continue;
+            }
+            if(CodeType.op_update.equalsIgnoreCase(sellEntity.getOpType())){
+                if(lastSell.equalsIgnoreCase(sellEntity.getSellBuy())){
+                    count = sellEntity.getQuantity();
+                    lastOp = CodeType.op_update;
+                    lastSell  = sellEntity.getSellBuy();
+                    continue;
+                }
+                if(CodeType.buy.equalsIgnoreCase(sellEntity.getSellBuy())){
+                    count+=sellEntity.getQuantity();
+                }else if(CodeType.sell.equalsIgnoreCase(sellEntity.getSellBuy())){
+                    count-=sellEntity.getQuantity();
+                }
             }
         }
         return count;
