@@ -38,3 +38,12 @@ CREATE TABLE `shop_report` (
 
 ​	针对本次实验，所有数据采用mock形式，不连接数据库操作
 
+##### 1.4demo演示
+
+1.拉取项目
+
+2.运行ReportServiceTest单元案例
+
+3.查看输出log
+
+![image-20201208143357321](C:\Users\12420\Desktop\test\ProgrammingTest\image-20201208143357321.png)
