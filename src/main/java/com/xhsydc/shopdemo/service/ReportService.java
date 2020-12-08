@@ -68,9 +68,9 @@ public class ReportService {
                 continue;
             }
             if(CodeType.op_update.equalsIgnoreCase(sellEntity.getOpType())){
+                lastOp = CodeType.op_update;
                 if(lastSell.equalsIgnoreCase(sellEntity.getSellBuy())){
                     count = sellEntity.getQuantity();
-                    lastOp = CodeType.op_update;
                     lastSell  = sellEntity.getSellBuy();
                     continue;
                 }
@@ -79,6 +79,7 @@ public class ReportService {
                 }else if(CodeType.sell.equalsIgnoreCase(sellEntity.getSellBuy())){
                     count-=sellEntity.getQuantity();
                 }
+                lastSell  = sellEntity.getSellBuy();
             }
         }
         return count;
